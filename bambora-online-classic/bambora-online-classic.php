@@ -125,6 +125,7 @@ function init_bambora_online_classic() {
 			$this->addfeetoorder = array_key_exists( 'addfeetoorder', $this->settings ) ? $this->settings['addfeetoorder'] : 'no';
 			$this->enablemobilepaymentwindow = array_key_exists( 'enablemobilepaymentwindow', $this->settings ) ? $this->settings['enablemobilepaymentwindow'] : 'yes';
 			$this->roundingmode = array_key_exists( 'roundingmode', $this->settings ) ? $this->settings['roundingmode'] : Bambora_Online_Classic_Helper::ROUND_DEFAULT;
+			$this->textonstatement = array_key_exists( 'textonstatement', $this->settings ) ? $this->settings['textonstatement'] : '';
 		}
 
 		/**
@@ -275,6 +276,12 @@ function init_bambora_online_classic() {
 								'description' => 'Please select how you want the rounding of the amount sendt to the payment system',
 								'options' => array( Bambora_Online_Classic_Helper::ROUND_DEFAULT => 'Default', Bambora_Online_Classic_Helper::ROUND_UP => 'Always up', Bambora_Online_Classic_Helper::ROUND_DOWN => 'Always down' ),
 								'default' => 'normal',
+							),
+				'textonstatement' => array(
+								'title' => 'Textonstatement',
+								'type' => 'text',
+								'description' => 'Value used for integration on Clearhaus',
+								'default' => '',
 							),
 				);
 		}
@@ -610,6 +617,7 @@ function init_bambora_online_classic() {
 				'language' => Bambora_Online_Classic_Helper::get_language_code( get_locale() ),
 				'ownreceipt' => Bambora_Online_Classic_Helper::yes_no_to_int( $this->ownreceipt ),
 				'timeout' => '60',
+				'textonstatement'=>$this->textonstatement,
 			);
 
 			if ( ! $is_request_to_change_payment_method ) {
